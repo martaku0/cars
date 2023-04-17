@@ -1,0 +1,20 @@
+<table class="table">
+    <tr>
+        <th scope="col">_id</th>
+        <th scope="col">ubezpieczony</th>
+        <th scope="col">benzyna</th>
+        <th scope="col">uszkodzony</th>
+        <th scope="col">naped4x4</th>
+        <th scope="col"> </th>
+    </tr>
+    {{#each dataDB}}
+        <tr>
+            <td>{{this._id}}</td>
+            <td>{{this.ubezpieczony}}</td>
+            <td>{{this.benzyna}}</td>
+            <td>{{this.uszkodzony}}</td>
+            <td>{{this.naped4x4}}</td>
+            <td><form action="carsList" method="GET"><button class="btn btn-danger" type="submit" name="delete" value="{{this._id}}" onclick="return confirm('confirm delete')">DELETE</button></form></td>
+        </tr>
+    {{/each}}
+</table>

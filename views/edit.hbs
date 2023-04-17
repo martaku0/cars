@@ -1,0 +1,33 @@
+<table class="table">
+    <tr>
+        <th scope="col">_id</th>
+        <th scope="col">ubezpieczony</th>
+        <th scope="col">benzyna</th>
+        <th scope="col">uszkodzony</th>
+        <th scope="col">naped4x4</th>
+        <th scope="col"> </th>
+        <th scope="col"> </th>
+    </tr>
+    {{#each dataDB}}
+        <tr>
+            {{#if (isExisting this._id)}}
+                <form action="editCars" method="GET">
+                    <td>{{this._id}}</td>
+                    <td><select name="update_{{this._id}}_ubezpieczony"><option value="TAK">TAK</option><option value="NIE">NIE</option><option value="BRAK">BRAKDANYCH</option></select></td>
+                    <td><select name="update_{{this._id}}_benzyna"><option value="TAK">TAK</option><option value="NIE">NIE</option><option value="BRAK">BRAKDANYCH</option></select></td>
+                    <td><select name="update_{{this._id}}_uszkodzony"><option value="TAK">TAK</option><option value="NIE">NIE</option><option value="BRAK">BRAKDANYCH</option></select></td>
+                    <td><select name="update_{{this._id}}_naped"><option value="TAK">TAK</option><option value="NIE">NIE</option><option value="BRAK">BRAKDANYCH</option></select></td>
+                    <td><button class="btn btn-danger" type="submit" name="update" value="{{this._id}}" onclick="return confirm('confirm update')">UPDATE</button></td>   
+                    <td><button class="btn btn-dark" type="submit" name="cancel" value="{{this._id}}">CANCEL</button></td>   
+                </form>
+            {{else}}
+                <td>{{this._id}}</td>
+                <td>{{this.ubezpieczony}}</td>
+                <td>{{this.benzyna}}</td>
+                <td>{{this.uszkodzony}}</td>
+                <td>{{this.naped4x4}}</td>
+                <td colspan="2"><form action="editCars" method="GET"><button class="btn btn-dark" type="submit" name="edit" value="{{this._id}}">EDIT</button></form></td>
+            {{/if}}
+        </tr>
+    {{/each}}
+</table>
