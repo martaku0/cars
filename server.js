@@ -41,16 +41,25 @@ app.get("/addCar", function(req, res) {
         res.render('add.hbs');
     } else {
 
-        let ubez = req.query.carInfo.includes("ubezpieczony") ? "TAK" : "NIE"
-        let benz = req.query.carInfo.includes("benzyna") ? "TAK" : "NIE"
-        let uszko = req.query.carInfo.includes("uszkodzony") ? "TAK" : "NIE"
-        let naped = req.query.carInfo.includes("naped") ? "TAK" : "NIE"
+        var data = {
+            ubezpieczony: "NIE",
+            benzyna: "NIE",
+            uszkodzony: "NIE",
+            naped4x4: "NIE"
+        }
 
-        const data = {
-            ubezpieczony: ubez,
-            benzyna: benz,
-            uszkodzony: uszko,
-            naped4x4: naped
+        if (Object.keys(req.query).includes('carInfo')) {
+            let ubez = req.query.carInfo.includes("ubezpieczony") ? "TAK" : "NIE"
+            let benz = req.query.carInfo.includes("benzyna") ? "TAK" : "NIE"
+            let uszko = req.query.carInfo.includes("uszkodzony") ? "TAK" : "NIE"
+            let naped = req.query.carInfo.includes("naped") ? "TAK" : "NIE"
+
+            data = {
+                ubezpieczony: ubez,
+                benzyna: benz,
+                uszkodzony: uszko,
+                naped4x4: naped
+            }
         }
 
         myCars.insert(data, function(err, newCar) {
@@ -63,7 +72,6 @@ app.get("/addCar", function(req, res) {
 })
 
 app.get("/carsList", function(req, res) {
-    console.log(req.query)
 
     if (req.query.delete) {
         myCars.remove({ _id: req.query.delete }, {}, function(err) {
